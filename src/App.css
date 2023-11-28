@@ -50,7 +50,11 @@
    background-color: burlywood;
 }
 
-.formcontainer h1{
+.formcontainer h2{
     text-align: center;
+}
+
+.formcontainer label{
+    font-size: 20px;
 }
 
