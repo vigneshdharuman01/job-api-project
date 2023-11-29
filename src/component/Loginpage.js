@@ -25,7 +25,7 @@ const Loginpage = () => {
         if (value.status === 200) {
           setData(value);
           navigate("/list");
-          alert("login successfull");
+          // alert("login successfull");
         } else {
           alert("Invalid Data");
         }
