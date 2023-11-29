@@ -24,6 +24,16 @@ function List() {
   // const handleShow = () => setShow(true);
 
   const createData = () => {
+    setTemp({
+      id: "",
+      name: "",
+      dob: "",
+      email: "",
+      password: "",
+      gender: "",
+      language: "",
+      state: "",
+    })
     setShow(true);
   };
 

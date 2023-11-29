@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { useState } from "react";
 
 function Model(props) {
   // console.log(props.modelData);
@@ -65,6 +66,21 @@ function Model(props) {
     props.modelClose();
   };
 
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } 
+    else{
+      {props.modelData.id === "" ? create() :update()}
+    }
+
+    setValidated(true);
+  };
+  // console.log(props.modelData);
   return (
     <>
       {/* <Button variant="primary" onClick={handleShow}>
@@ -82,9 +98,9 @@ function Model(props) {
         </Modal.Header>
 
         <Modal.Body>
-          <Form>
+          <Form  onSubmit={handleSubmit} noValidate validated={validated}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label className="fw-bold">First Name</Form.Label>
+              <Form.Label className="fw-bold">Name</Form.Label>
               <Form.Control
                 type="text"
                 defaultValue={props.modelData ? props.modelData.name : false}
@@ -96,7 +112,11 @@ function Model(props) {
                 }
                 placeholder="Enter your name..."
                 autoFocus
+                required
               />
+              <Form.Control.Feedback type="invalid">
+            Please provide a Name !
+          </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -104,6 +124,7 @@ function Model(props) {
               <Form.Control
                 type="email"
                 defaultValue={props.modelData ? props.modelData.email : false}
+                required
                 onChange={(e) =>
                   props.setModelData({
                     ...props.modelData,
@@ -112,6 +133,9 @@ function Model(props) {
                 }
                 placeholder="Enter your Email..."
               />
+               <Form.Control.Feedback type="invalid">
+            Email format wrong !
+          </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -121,20 +145,25 @@ function Model(props) {
                 defaultValue={
                   props.modelData ? props.modelData.password : false
                 }
+                required
                 onChange={(e) =>
                   props.setModelData({
                     ...props.modelData,
                     password: e.target.value,
                   })
                 }
-                placeholder="Enter your password..."
+                placeholder="Enter your password !"
               />
+                <Form.Control.Feedback type="invalid">
+            Please Enter password
+          </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label className="fw-bold">Date Of Birth</Form.Label>
               <Form.Control
                 type="date"
+                required
                 defaultValue={props.modelData ? props.modelData.dob : false}
                 onChange={(e) =>
                   props.setModelData({
@@ -144,11 +173,15 @@ function Model(props) {
                 }
                 placeholder="Enter your Date Of Birth..."
               />
+                <Form.Control.Feedback type="invalid">
+            Please Enter DateOfBirth
+          </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
               <Form.Label className="fw-bold">Gender</Form.Label>
-              <Form.Control
+              {/* <Form.Control
+                required
                 defaultValue={props.modelData ? props.modelData.gender : false}
                 onChange={(e) =>
                   props.setModelData({
@@ -158,12 +191,46 @@ function Model(props) {
                 }
                 type="text"
                 placeholder="Enter your Gender..."
-              />
+              /> */}
+<form class="row g-3 needs-validation" novalidate>
+<div class="form-check">
+  
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="male" onChange={(e) =>
+                  props.setModelData({
+                    ...props.modelData,
+                    gender: e.target.value,
+                  })}/>
+  <label className="form-check-label" for="flexRadioDefault1">
+    Male
+  </label>
+</div>
+<div class="form-check">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Female" onChange={(e) =>
+                  props.setModelData({
+                    ...props.modelData,
+                    gender: e.target.value,
+                  })} />
+  <label className="form-check-label" for="flexRadioDefault2">
+    Female
+  </label>
+</div>
+<div class="form-check">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Others" onChange={(e) =>
+                  props.setModelData({
+                    ...props.modelData,
+                    gender: e.target.value,
+                  })}/>
+  <label className="form-check-label" for="flexRadioDefault2">
+    Others
+  </label>
+</div>
+</form>
+              
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label className="fw-bold">Language</Form.Label>
-              <Form.Control
+              {/* <Form.Control
                 defaultValue={
                   props.modelData ? props.modelData.language : false
                 }
@@ -175,12 +242,25 @@ function Model(props) {
                 }
                 type="text"
                 placeholder="Enter your Language..."
-              />
+              /> */}
+              <Form.Select aria-label="select language"  onChange={(e) =>
+                  props.setModelData({
+                    ...props.modelData,
+                    language: e.target.value,
+                  })}>
+                    
+                    {/* <option >Select Language</option> */}
+                <option value="Tamil">Tamil</option>
+       
+      <option  value="English">English</option>
+      <option  value="Hindi">Hindi</option>
+      <option value="Other Language">Other Language</option>
+    </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label className="fw-bold">State</Form.Label>
-              <Form.Control
+              {/* <Form.Control
                 defaultValue={props.modelData ? props.modelData.state : false}
                 onChange={(e) =>
                   props.setModelData({
@@ -190,8 +270,27 @@ function Model(props) {
                 }
                 type="text"
                 placeholder="Enter your State..."
-              />
+              /> */}
+                <Form.Select aria-label="select State" required onChange={(e) =>
+                  props.setModelData({
+                    ...props.modelData,
+                    state: e.target.value,
+                  })}>
+                {/* <option>Select State</option> */}
+                <option value="TamilNadu">TamilNamdu</option>
+                <option  value="Kerala">Kerala</option>
+                <option  value="AndraPradesh">AndraPradesh</option>
+                <option  value="Karnataka">Karnataka</option>
+                <option  value="Telangana">Telangana</option>
+                <option  value="Goa">Goa</option>
+                <option  value="Punjab">Punjab</option>
+                <option  value="Maharashtra">Maharashtra</option>
+                <option  value="Gujarat">Gujarat</option>
+                <option  value="Bihar">Bihar</option>
+                <option  value="Odisha">Odisha</option>
+    </Form.Select>
             </Form.Group>
+            <Button type="submit">Submit form</Button>
           </Form>
         </Modal.Body>
 
@@ -199,7 +298,7 @@ function Model(props) {
           <Button variant="danger" onClick={props.modelClose}>
             Close
           </Button>
-          {props.modelData.id === "" ? (
+          {/* {props.modelData.id === "" ? (
             <Button variant="warning" onClick={create}>
               Insert Data
             </Button>
@@ -207,7 +306,7 @@ function Model(props) {
             <Button variant="warning" onClick={update}>
               Save Changes
             </Button>
-          )}
+          )} */}
         </Modal.Footer>
       </Modal>
     </>
