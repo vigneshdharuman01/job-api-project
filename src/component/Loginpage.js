@@ -50,6 +50,7 @@ const Loginpage = () => {
               id="username"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              placeholder="Enter User Name"
             />
           </div>
           <div className="mb-3">
@@ -62,6 +63,7 @@ const Loginpage = () => {
               id="exampleInputPassword1"
               value={pass}
               onChange={(e) => setPass(e.target.value)}
+              placeholder="Enter user password"
             />
           </div>
           <button type="submit" className="btn btn-primary ">

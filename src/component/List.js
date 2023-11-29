@@ -39,7 +39,7 @@ function List() {
       language: data.language,
       state: data.state,
     });
-    console.log(data.name);
+    //console.log(data.name);
   };
 
   const deleteData = (dataId) => {
